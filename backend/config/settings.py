@@ -43,7 +43,7 @@ MEDIA_ROOT = BASE_DIR / "media"
 STORAGES = {"default": {"BACKEND": "django.core.files.storage.FileSystemStorage"},
             "staticfiles": {"BACKEND": "whitenoise.storage.CompressedManifestStaticFilesStorage"}}
 if os.environ.get("AWS_STORAGE_BUCKET_NAME"):
-    STORAGES["default"] = {"BACKEND": "storages.backends.s3.S3Storage"}
+    STORAGES["default"] = {"BACKEND": "storages.backends.s3.S3Storage", "OPTIONS": {"bucket_name": os.environ.get("AWS_STORAGE_BUCKET_NAME") or "lenticular-media", "endpoint_url": os.environ.get("AWS_S3_ENDPOINT_URL", "https://br-broad-shape-b9rffuff.storage.c-7.eu-central-1.aws.neon.tech"), "region_name": "eu-central-1", "addressing_style": "path", "querystring_auth": False}}
     AWS_S3_ADDRESSING_STYLE = "path"
     AWS_S3_REGION_NAME = "eu-central-1"
     AWS_QUERYSTRING_AUTH = False
