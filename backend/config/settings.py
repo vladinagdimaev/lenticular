@@ -44,6 +44,10 @@ STORAGES = {"default": {"BACKEND": "django.core.files.storage.FileSystemStorage"
             "staticfiles": {"BACKEND": "whitenoise.storage.CompressedManifestStaticFilesStorage"}}
 if os.environ.get("AWS_STORAGE_BUCKET_NAME"):
     STORAGES["default"] = {"BACKEND": "storages.backends.s3.S3Storage"}
+    AWS_S3_ADDRESSING_STYLE = "path"
+    AWS_S3_REGION_NAME = "eu-central-1"
+    AWS_QUERYSTRING_AUTH = False
+    AWS_DEFAULT_ACL = None
 SECURE_PROXY_SSL_HEADER = ("HTTP_X_FORWARDED_PROTO", "https")
 SESSION_COOKIE_SECURE = not DEBUG
 CSRF_COOKIE_SECURE = not DEBUG
