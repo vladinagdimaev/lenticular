@@ -32,6 +32,14 @@ def studio(request):
                         ProductVariant.objects.create(product=p, width_cm=30, height_cm=40, price_ils=40, stock=1)
                     count += 1
                 messages.success(request, f"נוצרו {count} מוצרים כטיוטות. אפשר לערוך ולפרסם אותם למטה.")
+        elif action == "delete":
+            product = Product.objects.filter(pk=request.POST.get("product_id")).first()
+            if product:
+                name = product.title
+                product.delete()
+                messages.success(request, f"המוצר {name} נמחק מהקטלוג")
+            else:
+                messages.error(request, "המוצר לא נמצא")
         elif action == "save":
             ids = request.POST.getlist("ids")
             count = 0
@@ -44,10 +52,9 @@ def studio(request):
                 if not title or not sub:
                     continue
                 p.title = title[:200]
-                p.description = request.POST.get(f"description_{value}", "")
                 p.subcategory = sub
                 p.active = request.POST.get(f"active_{value}") == "on"
-                p.save(update_fields=["title", "description", "subcategory", "active"])
+                p.save(update_fields=["title", "subcategory", "active"])
                 v = p.variants.first()
                 if v:
                     try:
