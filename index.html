@@ -31,7 +31,8 @@ function media(p){const m=p.media[0];if(!m)return null;const x=el(m.kind==='vide
 function renderFilters(){
  $('categories').replaceChildren(chip('הכל',category==='all',()=>{category='all';sub='all';render()}));categories.forEach(c=>$('categories').append(chip(c.name,category===c.id,()=>{category=c.id;sub='all';render()})));
  $('subcategories').replaceChildren();if(category!=='all'){const c=categories.find(c=>c.id===category);$('subcategories').append(el('strong','נושא:'),chip('הכל',sub==='all',()=>{sub='all';render()}));c.subs.forEach(x=>$('subcategories').append(chip(x.name,sub===x.id,()=>{sub=x.id;render()})))}
-\n}
+
+}
 function render(){
  renderFilters();const filtered=products.filter(p=>(category==='all'||p.category===category)&&(sub==='all'||p.sub===sub)&&(!search||(p.name+' '+p.categoryName+' '+p.subName).includes(search)));
  $('resultsTitle').textContent=categories.find(c=>c.id===category)?.name||'כל היצירות';$('count').textContent=filtered.length+' יצירות בקטלוג';const strip=$('products');strip.replaceChildren();
