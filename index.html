@@ -19,7 +19,7 @@ const catalog=[
 {id:'games',name:'משחקי מחשב',subs:['הרפתקאות','פעולה','פנטזיה'],colors:['#c8e2d2','#6caa8a','#304d56']}
 ];
 const items=catalog.flatMap((cat,ci)=>cat.subs.flatMap((sub,si)=>Array.from({length:3},(_,i)=>({id:cat.id+'-'+si+'-'+i,category:cat.id,sub,name:sub+' · יצירה '+(i+1),colors:cat.colors,variant:(ci+si+i)%4}))));
-items.unshift({id:'sample-video',category:'pets',sub:'אחרים',name:'תמונה לנטיקולרית — וידאו לדוגמה',colors:catalog[0].colors,variant:0,video:'assets/sample.mp4'});
+items.unshift({id:'sample-video',category:'pets',sub:'אחרים',name:'תמונה לנטיקולרית — וידאו לדוגמה',colors:catalog[0].colors,variant:0,video:'sample.mp4'});
 let selectedCategory='all',selectedSub='all',query='';
 const categoryEl=document.getElementById('categories'),subEl=document.getElementById('subcategories'),productsEl=document.getElementById('products');
 function chip(label,active,onClick){const b=document.createElement('button');b.type='button';b.className='chip';b.textContent=label;b.setAttribute('aria-pressed',String(active));b.addEventListener('click',onClick);return b}
