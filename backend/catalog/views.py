@@ -10,11 +10,11 @@ def catalog_json(request):
         if not variants:
             continue
         data.append({"id": p.id, "sku": p.sku, "title": p.title, "description": p.description,
-                     "category": p.subcategory.category.slug, "subcategory": p.subcategory.slug,
+                     "category": p.subcategory.category.slug, "category_name": p.subcategory.category.name, "subcategory": p.subcategory.slug, "subcategory_name": p.subcategory.name,
                      "variants": variants,
                      "media": [{"url": request.build_absolute_uri(m.file.url), "kind": m.kind, "alt": m.alt_text}
                                for m in p.media.all() if m.file]})
     response = JsonResponse({"products": data})
-    response["Access-Control-Allow-Origin"] = request.headers.get("Origin", "") if request.headers.get("Origin", "") in [
-        x.strip() for x in __import__("os").environ.get("CATALOG_ALLOWED_ORIGINS", "").split(",") if x.strip()] else ""
+    response["Access-Control-Allow-Origin"] = request.headers.get("Origin", "") if request.headers.get("Origin", "") in (["https://lenticular-gatv.onrender.com"] + [
+        x.strip() for x in __import__("os").environ.get("CATALOG_ALLOWED_ORIGINS", "").split(",") if x.strip()]) else ""
     return response
