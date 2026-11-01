@@ -43,7 +43,7 @@ class ProductMedia(models.Model):
         VIDEO = "video", "וידאו"
     product = models.ForeignKey(Product, on_delete=models.CASCADE, related_name="media", verbose_name="מוצר")
     file = models.FileField("קובץ", upload_to="products/%Y/%m/")
-    kind = models.CharField("סוג מדיה", max_length=10, choices=Kind.choices, default=Kind.IMAGE)
+    kind = models.CharField("סוג מדיה", max_length=10, choices=Kind.choices, default=Kind.VIDEO)
     alt_text = models.CharField("תיאור נגיש", max_length=250, blank=True)
     order = models.PositiveIntegerField("סדר", default=0)
     class Meta:
