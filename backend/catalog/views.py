@@ -7,8 +7,6 @@ def catalog_json(request):
     for p in products:
         variants = [{"id": v.id, "width_cm": str(v.width_cm), "height_cm": str(v.height_cm),
                      "price_ils": str(v.price_ils), "stock": v.stock} for v in p.variants.all() if v.stock > 0]
-        if not variants:
-            continue
         data.append({"id": p.id, "sku": p.sku, "title": p.title, "description": p.description,
                      "category": p.subcategory.category.slug, "category_name": p.subcategory.category.name, "subcategory": p.subcategory.slug, "subcategory_name": p.subcategory.name,
                      "variants": variants,
